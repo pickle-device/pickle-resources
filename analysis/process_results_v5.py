@@ -526,6 +526,8 @@ def plot_timeliness():
         baseline[stats.description.graph_name] = stats.getField("simSeconds")
     pickle = {}
     for stats in pickle_prefetcher_stats:
+        if stats.description.private_core_prefetcher != PrivateCorePrefetcher.NONE:
+            continue
         pickle_time = stats.getField("simSeconds")
         pickle[stats.description.graph_name] = baseline[stats.description.graph_name] / pickle_time
     ideal_l3 = {}
@@ -541,6 +543,8 @@ def plot_timeliness():
     }
 
     for stats in pickle_prefetcher_stats:
+        if stats.description.private_core_prefetcher != PrivateCorePrefetcher.NONE:
+            continue
         timeliness_data["graph_name"].append(stats.description.graph_name)
         if stats.description.private_core_prefetcher == PrivateCorePrefetcher.NONE:
             timeliness_data["prefetcher"].append("picklepf-distance-"+stats.description.prefetch_distance)
@@ -548,7 +552,7 @@ def plot_timeliness():
             timeliness_data["prefetcher"].append("picklepf-distance-"+stats.description.prefetch_distance+"-"+stats.description.private_core_prefetcher)
         timeliness_data["upside_percentage"].append((pickle[stats.description.graph_name]-1)/(ideal_l3[stats.description.graph_name]-1)*100)
         timeliness_data["timely_prefetch_percentage"].append(stats.getField("timely prefetches count") / stats.getField("task count") * 100)
-        
+
     df = pds.DataFrame(timeliness_data)
     df.reset_index();
     x_order = graphs
@@ -556,11 +560,8 @@ def plot_timeliness():
     plt.rcParams.update({'font.size': 18})
     #ax = sns.catplot(data=df, kind="bar", x="graph_name", y="timely_prefetch_percentage", hue="prefetcher", palette="tab10", order = x_order, hue_order=hue_order, aspect=3.5,)\
     #        .set(ylabel="Timely Prefetch %", xlabel="Graph Names")
-
     ax1 = sns.set_style(style=None, rc=None)
-
     fig, ax1 = plt.subplots(figsize=(20,5))
-
     plt.rcParams.update({'font.size': 18})
     sns.barplot(df, x="graph_name", y="upside_percentage", legend=True, ax=ax1, order=graphs, label="Upside Percentage")
     ax2 = ax1.twinx()
