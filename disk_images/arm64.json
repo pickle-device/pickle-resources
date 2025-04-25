@@ -1,0 +1,56 @@
+{
+    "_license": "Copyright (c) 2025 The Regents of the University of California. SPDX-License-Identifier: BSD 3-Clause",
+    "builders":
+    [
+        {
+            "type": "null",
+            "ssh_host": "localhost",
+            "ssh_port": "5556",
+            "ssh_username": "{{ user `ssh_username` }}",
+            "ssh_private_key_file": "disk_image_key"
+        }
+    ],
+    "provisioners":
+    [
+        {
+            "type": "file",
+            "source": "shared/gem5-init.sh",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "file",
+            "source": "shared/serial-getty@.service",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "file",
+            "source": "../../libpickledevice",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "file",
+            "source": "../../pickle_device_driver",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "file",
+            "source": "../../gapbs",
+            "destination": "/home/ubuntu/"
+        },
+        {
+            "type": "shell",
+            "execute_command": "{{.Vars}} bash '{{.Path}}'",
+            "scripts":
+            [
+                "shared/1.package-installation.sh",
+                "shared/2.m5-installation.sh",
+                "shared/3.driver-installation.sh",
+                "shared/4.library-installation.sh"
+            ]
+        }
+    ],
+    "variables":
+    {
+        "ssh_username": "ubuntu"
+    }
+}

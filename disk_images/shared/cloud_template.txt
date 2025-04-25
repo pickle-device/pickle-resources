@@ -1,0 +1,10 @@
+#cloud-config
+users:
+  - name: ubuntu
+    lock_passwd: false
+    plain_text_passwd: tomato
+    chpasswd: {expire: False}
+    groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    ssh_pwauth: True
