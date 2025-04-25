@@ -37,3 +37,4 @@ RUN apt -y update && apt -y upgrade && \
     libudev-dev libpci-dev libiberty-dev autoconf llvm bc mold\
     vim
 RUN pip install mypy pre-commit
+RUN pip install numpy pandas matplotlib seaborn
