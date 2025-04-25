@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $HOME/gapbs
+make bfs2 SERIAL=0 ENABLE_GEM5=1 ENABLE_PICKLEDEVICE=1

@@ -45,7 +45,9 @@
                 "shared/1.package-installation.sh",
                 "shared/2.m5-installation.sh",
                 "shared/3.driver-installation.sh",
-                "shared/4.library-installation.sh"
+                "shared/4.library-installation.sh",
+                "shared/5.gapbs-installation.sh",
+                "shared/6.graph-download.sh"
             ]
         }
     ],
