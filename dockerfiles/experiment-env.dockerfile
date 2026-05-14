@@ -1,4 +1,4 @@
-# Copyright (c) 2025 The Regents of the University of California
+# Copyright (c) 2025-2026 The Regents of the University of California
 # All Rights Reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,6 @@ RUN apt -y update && apt -y upgrade && \
     cmake gdb \
     libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev \
     libudev-dev libpci-dev libiberty-dev autoconf llvm bc mold\
-    vim
+    vim libzstd-dev
 RUN pip install mypy pre-commit
 RUN pip install numpy pandas matplotlib seaborn
