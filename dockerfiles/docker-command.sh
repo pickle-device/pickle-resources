@@ -1,0 +1,1 @@
+docker run -u $UID:$GID --volume /scr/hn/LOCAL_ARTIFACTS:/scr/hn/LOCAL_ARTIFACTS --volume $PWD:/workdir -w /workdir --device=/dev/kvm --group-add=108 --name gem5-env-A --memory=700g --memory-swap=900g --rm -it pickle-env
