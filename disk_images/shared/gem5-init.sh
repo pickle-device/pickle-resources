@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mountpoint -q /proc || mount -t proc proc /proc
+mountpoint -q /sys  || mount -t sysfs sysfs /sys
+
 # m5 --addr is compatible with KVM
 
 insmod /home/ubuntu/pickle_device_driver/build/pickle_driver.ko
